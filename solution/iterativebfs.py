@@ -1,21 +1,18 @@
 from dataclasses import field
 from typing import List, Tuple
-import random
 from sys import argv
-
 
 START_CHAR = "S"
 GOAL_CHAR = "$"
 MOUNTAIN_CHAR = "#"
 BLANK_CHAR = "-"
 
-
 def build_puzzle(puzzle_file) -> list[list[str]]:
-    puzzle_file = open(f'puzzles/{puzzle_file}', 'r', encoding='utf8')
+    file = open(f'../puzzles/{puzzle_file}', 'r', encoding='utf8')
 
     gridworld: list[list[str]] = []
 
-    for line in puzzle_file.readlines():
+    for line in file.readlines():
         row = [marker for marker in line if marker != '\n'] 
         gridworld.append(row)
 
@@ -93,7 +90,7 @@ def showPuzzle(current_location, world):
 def markPath(world, path):
     num_rows = len(world)
     num_cols = len(world[0])
-    if len(path) > 2:
+    if path != None:
         for row in range(num_rows):
             rowstr = ''
             for col in range(num_cols):
@@ -102,6 +99,8 @@ def markPath(world, path):
                 else: 
                     rowstr += world[row][col]
             print(rowstr)
+    else:
+        print("No solution found.")
 
 
 if __name__ == '__main__':
